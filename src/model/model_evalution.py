@@ -75,7 +75,7 @@ def save_metrics(metrics: dict, path="reports/metrics"):
 
 def main():
     try:
-        model = load_model("models/model.pkl")  # updated path
+        model = load_model("model/model.pkl")  # updated path
         test_df = load_data("data/features/test_bow.csv")
 
         X_test, y_test = prepare_data(test_df)

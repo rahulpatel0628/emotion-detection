@@ -53,9 +53,9 @@ def train_model(X, y, n_estimators: int, learning_rate: float):
         logging.error(f"Error training model: {e}")
         raise
 
-def save_model(model, path="models/model.pkl"):
+def save_model(model, path="model/model.pkl"):
     try:
-        os.makedirs("models", exist_ok=True)
+        os.makedirs("model", exist_ok=True)
         with open(path, "wb") as f:
             pickle.dump(model, f)
         logging.info(f"Model saved at {path}")
