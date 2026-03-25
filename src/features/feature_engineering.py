@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import yaml
 import logging
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -48,9 +48,9 @@ def prepare_features(train_df: pd.DataFrame, test_df: pd.DataFrame):
         logging.error(f"Error preparing features: {e}")
         raise
 
-def apply_bow(x_train, x_test, max_features: int):
+def apply_tfidf(x_train, x_test, max_features: int):
     try:
-        vectorizer = CountVectorizer(max_features=max_features)
+        vectorizer = TfidfVectorizer(max_features=max_features)
 
         x_train_bow = vectorizer.fit_transform(x_train)
         x_test_bow = vectorizer.transform(x_test)
@@ -81,8 +81,8 @@ def save_data(train_df: pd.DataFrame, test_df: pd.DataFrame, path: str):
     try:
         os.makedirs(path, exist_ok=True)
 
-        train_path = os.path.join(path, "train_bow.csv")
-        test_path = os.path.join(path, "test_bow.csv")
+        train_path = os.path.join(path, "train_tfidf.csv")
+        test_path = os.path.join(path, "test_tfidf.csv")
 
         train_df.to_csv(train_path, index=False)
         test_df.to_csv(test_path, index=False)
@@ -105,7 +105,7 @@ def main():
 
         x_train, y_train, x_test, y_test = prepare_features(train_df, test_df)
 
-        x_train_bow, x_test_bow = apply_bow(x_train, x_test, max_features)
+        x_train_bow, x_test_bow = apply_tfidf(x_train, x_test, max_features)
 
         train_final, test_final = create_feature_df(
             x_train_bow, y_train, x_test_bow, y_test

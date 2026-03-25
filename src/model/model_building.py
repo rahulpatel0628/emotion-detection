@@ -69,7 +69,7 @@ def main():
         n_estimators = params['n_estimators']
         learning_rate = params['learning_rate']
 
-        df = load_data("./data/features/train_bow.csv")
+        df = load_data("./data/features/train_tfidf.csv")
 
         X, y = prepare_data(df)
 
